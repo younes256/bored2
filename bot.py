@@ -9,7 +9,6 @@ if TOKEN is None:
 
 # إعداد intents للحصول على الأذونات المناسبة
 intents = discord.Intents.default()
-intents.message_content = True
 intents.voice_states = True
 intents.guilds = True  # تأكد من إضافة هذا إذا كان البوت يحتاج إلى معلومات الخوادم
 
@@ -25,8 +24,9 @@ async def join(ctx):
     if ctx.author.voice:
         channel = ctx.author.voice.channel
         if ctx.voice_client is None:  # تأكد من أن البوت ليس متصل بالفعل
-            await channel.connect()
+            voice_client = await channel.connect()
             await ctx.send(f'Joined {channel}')
+            await voice_client.guild.change_voice_state(channel=channel, self_mute=True)  # تفعيل وضع الصامت
         else:
             await ctx.send('I am already connected to a voice channel!')
     else:
