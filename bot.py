@@ -9,8 +9,9 @@ if TOKEN is None:
 
 # إعداد intents للحصول على الأذونات المناسبة
 intents = discord.Intents.default()
+intents.message_content = True  # تأكد من تمكين هذا في بوابة مطوري Discord
 intents.voice_states = True
-intents.guilds = True  # تأكد من إضافة هذا إذا كان البوت يحتاج إلى معلومات الخوادم
+intents.guilds = True
 
 # إعداد البوت مع بادئة الأوامر و intents
 bot = commands.Bot(command_prefix='!', intents=intents)
