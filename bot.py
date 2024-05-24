@@ -9,7 +9,7 @@ if TOKEN is None:
 
 # إعداد intents للحصول على الأذونات المناسبة
 intents = discord.Intents.default()
-intents.message_content = True
+intents.messages = True
 intents.voice_states = True
 
 # إعداد البوت مع بادئة الأوامر و intents
