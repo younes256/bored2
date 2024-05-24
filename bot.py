@@ -9,7 +9,7 @@ if TOKEN is None:
 
 # إعداد intents للحصول على الأذونات المناسبة
 intents = discord.Intents.default()
-intents.message_content = True  # تأكد من تمكين هذا في بوابة مطوري Discord
+intents.messages = True  # تمكين خاصية الرسائل
 intents.voice_states = True
 intents.guilds = True
 
@@ -40,18 +40,5 @@ async def leave(ctx):
         await ctx.send('Left the voice channel')
     else:
         await ctx.send('I am not in a voice channel!')
-
-# إضافة نقطة نهاية ويب للبوت
-from flask import Flask
-
-app = Flask(__name__)
-
-@app.route('/')
-def index():
-    return 'Hello, World!'
-
-# تشغيل السيرفر
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=3000)
 
 bot.run(TOKEN)
