@@ -1,1 +1,2 @@
-web: python bot.py --port 3000
+worker: python bot.py
+
