@@ -9,8 +9,9 @@ if TOKEN is None:
 
 # إعداد intents للحصول على الأذونات المناسبة
 intents = discord.Intents.default()
-intents.messages = True
+intents.message_content = True
 intents.voice_states = True
+intents.guilds = True  # تأكد من إضافة هذا إذا كان البوت يحتاج إلى معلومات الخوادم
 
 # إعداد البوت مع بادئة الأوامر و intents
 bot = commands.Bot(command_prefix='!', intents=intents)
@@ -23,15 +24,18 @@ async def on_ready():
 async def join(ctx):
     if ctx.author.voice:
         channel = ctx.author.voice.channel
-        await channel.connect()
-        await ctx.send(f'Joined {channel}')
+        if ctx.voice_client is None:  # تأكد من أن البوت ليس متصل بالفعل
+            await channel.connect()
+            await ctx.send(f'Joined {channel}')
+        else:
+            await ctx.send('I am already connected to a voice channel!')
     else:
         await ctx.send('You are not in a voice channel!')
 
 @bot.command()
 async def leave(ctx):
     if ctx.voice_client:
-        await ctx.guild.voice_client.disconnect()
+        await ctx.voice_client.disconnect()
         await ctx.send('Left the voice channel')
     else:
         await ctx.send('I am not in a voice channel!')
