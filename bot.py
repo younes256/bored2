@@ -24,7 +24,7 @@ async def on_ready():
 async def join(ctx):
     if ctx.author.voice:
         channel = ctx.author.voice.channel
-        if ctx.voice_client is None:  # تأكد من أن البوت ليس متصل بالفعل
+        if ctx.voice_client is None or not ctx.voice_client.is_connected():  # التحقق من أن البوت غير متصل بالفعل أو فصلته من القناة الصوتية
             voice_client = await channel.connect()
             await ctx.send(f'Joined {channel}')
             await voice_client.guild.change_voice_state(channel=channel, self_deaf=True)  # تفعيل وضع "deafen"
@@ -35,7 +35,7 @@ async def join(ctx):
 
 @bot.command()
 async def leave(ctx):
-    if ctx.voice_client:
+    if ctx.voice_client and ctx.voice_client.is_connected():  # التحقق من أن البوت متصل بالفعل بالقناة الصوتية
         await ctx.voice_client.disconnect()
         await ctx.send('Left the voice channel')
     else:
