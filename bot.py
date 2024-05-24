@@ -27,7 +27,7 @@ async def join(ctx):
         if ctx.voice_client is None:  # تأكد من أن البوت ليس متصل بالفعل
             voice_client = await channel.connect()
             await ctx.send(f'Joined {channel}')
-            await voice_client.guild.change_voice_state(channel=channel, self_deafen=True)  # تفعيل وضع الصامت
+            await voice_client.guild.change_voice_state(channel=channel, self_deaf=True)  # تفعيل وضع "deafen"
         else:
             await ctx.send('I am already connected to a voice channel!')
     else:
