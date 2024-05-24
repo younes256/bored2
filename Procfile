@@ -1,1 +1,1 @@
-web: python app.py --port 3000
+web: python bot.py --port 3000
