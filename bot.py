@@ -9,7 +9,7 @@ if TOKEN is None:
 
 # إعداد intents للحصول على الأذونات المناسبة
 intents = discord.Intents.default()
-intents.messages = True  # تمكين خاصية الرسائل
+intents.messages = True  # تأكد من تمكين هذا في بوابة مطوري Discord
 intents.voice_states = True
 intents.guilds = True
 
@@ -41,4 +41,6 @@ async def leave(ctx):
     else:
         await ctx.send('I am not in a voice channel!')
 
-bot.run(TOKEN)
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 3000))
+    bot.run(TOKEN)
